@@ -1,0 +1,48 @@
+* {
+  font-family: "Lato", sans-serif;
+}
+
+h1, h2, h3, h4, h5, .h1, .h2, .h3, .h4, .h5 {
+  
+  font-family: "Playfair Display", serif;
+
+}
+
+
+:root {
+
+  --giallo : #FDC094;
+  --arancio : #FF9190;
+  --scuro : #0B0742;
+  --blu-medio : #5E72EB;
+  --chiaro : #f4f4f4;
+}
+
+.bg-giallo {
+  background-color: var(--giallo);
+  color: var(--scuro);
+}
+
+.bg-scuro {
+  background-color: var(--blu-medio);
+  color: var(--chiaro);
+}
+
+.bg-chiaro {
+  background-color: var(--chiaro);
+  color: var(--scuro);
+}
+
+
+
+.text-giallo {
+  background-color: var(--giallo);
+}
+
+.text-scuro {
+  background-color: var(--blu-scuro);
+}
+
+.text-chiaro {
+  background-color: var(--chiaro);
+}
