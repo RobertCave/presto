@@ -85,25 +85,32 @@ showCards(data);
 
 ///--------------------------- filtra le categorie
 
-function filterByCategory(category){
+let radioButtons = document.querySelectorAll('.form-check-input');
+
+function filterByCategory(array){
+
+    // cercare la categoria su tutti i radiobuttons che abbia l'attributo "checked"
+
+    let category = Array.from(radioButtons).find( (button)=> button.checked ).id;
 
     if (category != "All") {
-        let filtered = data.filter( (annuncio)=> annuncio.category == category  );
-        showCards(filtered);
+        let filtered = array.filter( (annuncio)=> annuncio.category == category  );
+        // showCards(filtered);
+        return filtered;
         
     } else {
-        showCards(data);
+
+        return array;
+
     }
 
 }
 
-let radioButtons = document.querySelectorAll('.form-check-input');
 
 radioButtons.forEach( (button)=>{
     button.addEventListener('click', ()=>{
-        filterByCategory(button.id);
-        
-         
+        globalFilter();
+
     });
 });
 
@@ -126,16 +133,16 @@ function setPriceInput() {
 setPriceInput(); 
 
 
-function filterByPrice() {
-    let filtered = data.filter(  (annuncio)=> +annuncio.price <= +prezzo.value);
-    showCards(filtered);
-    
+function filterByPrice(array) {
+    let filtered = array.filter(  (annuncio)=> +annuncio.price <= +prezzo.value);
+    // showCards(filtered);
+    return filtered;
     
 }
 
 prezzo.addEventListener('input', ()=>{
     priceValue.innerHTML= prezzo.value;
-    filterByPrice();
+    globalFilter();
 
 }  );
 
@@ -144,16 +151,31 @@ prezzo.addEventListener('input', ()=>{
 // RICERCA PER PAROLA ----------------
 let wordInput = document.querySelector('#wordInput'); // parola da cercare
  
-function filterByWords(parola) {
-    let filtered = data.filter( (annuncio) => annuncio.name.toLowerCase().includes(parola.toLowerCase()) );
-    showCards(filtered);    
+function filterByWords(array) {
+    let filtered = array.filter( (annuncio) => annuncio.name.toLowerCase().includes(wordInput.value.toLowerCase()) );
+    return filtered;   
 }
 
 wordInput.addEventListener('input', ()=> {
-    filterByWords(wordInput.value);
-
-
+    globalFilter();
 });
+
+
+
+// abbiamo bisogno che scattano tutti e tre i filtri ma che non sia applicata su data ma che siano concatenati tra loro
+
+function globalFilter(){
+    let filterByC = filterByCategory(data);
+    
+
+    let filterByP = filterByPrice(filterByC);
+    let filterByW = filterByWords(filterByP);
+
+    showCards (filterByW);
+
+}
+
+
 
 
 } ); // FINE FETCH
